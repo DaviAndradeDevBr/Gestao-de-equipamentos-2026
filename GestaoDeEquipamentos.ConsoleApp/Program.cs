@@ -17,13 +17,28 @@ Equipamento equipamento = new Equipamento();
 equipamento.nome = "Notebook";
 equipamento.fabricante = "Acer";
 equipamento.precoAquisicao = 2000;
-equipamento.dataFabricacao = DateTime.Now;
+equipamento.dataFabricacao = DateTime.Now.AddYears(-5);
+
+Equipamento equipamento2 = new Equipamento();
+equipamento2.nome = "Monitor";
+equipamento2.fabricante = "LG";
+equipamento2.precoAquisicao = 1200;
+equipamento2.dataFabricacao = DateTime.Now.AddYears(-4);
 
 repositorioEquipamento.Cadastrar(equipamento);
+repositorioEquipamento.Cadastrar(equipamento2);
+
+Chamado chamado = new Chamado();
+chamado.titulo = "Quebrou o display";
+chamado.descricao = "Está com deadpixel";
+chamado.dataAbertura = DateTime.Now.AddDays(-7);
+chamado.equipamento = equipamento;
+
+repositorioChamado.Cadastrar(chamado);
 
 while (true)
 {
-    Console.Clear();
+    // Console.Clear();
     Console.WriteLine("---------------------------------");
     Console.WriteLine("Gestão de Equipamentos");
     Console.WriteLine("---------------------------------");
@@ -85,7 +100,7 @@ while (true)
                 telaChamado.Excluir();
 
             else if (opcaoMenu == "4")
-                telaChamado.VisualizarTodos();
+                telaChamado.VisualizarTodos(deveExibirCabecalho: true);
         }
     }
 
