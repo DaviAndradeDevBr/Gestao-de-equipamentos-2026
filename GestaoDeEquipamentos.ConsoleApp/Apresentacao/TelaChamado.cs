@@ -10,7 +10,7 @@ public class TelaChamado
 
     public string? ObterEscolhaMenuPrincipal()
     {
-        //Console.Clear();
+        Console.Clear();
         Console.WriteLine("---------------------------------");
         Console.WriteLine("Gestão de Chamados");
         Console.WriteLine("---------------------------------");
@@ -86,7 +86,6 @@ public class TelaChamado
             return;
         }
 
-
         Console.WriteLine("---------------------------------");
         Console.WriteLine($"O registro \"{idSelecionado}\" foi editado com sucesso.");
         Console.WriteLine("---------------------------------");
@@ -96,7 +95,43 @@ public class TelaChamado
 
     public void Excluir()
     {
+        // 1. Apresenta o cabeçalho
         ExibirCabecalho("Exclusão de Chamado");
+
+        // 2. Apresentar e selecionar o chamado que deseja excluir
+        VisualizarTodos(deveExibirCabecalho: false);
+
+        Console.WriteLine("---------------------------------");
+
+        string? idSelecionado;
+
+        do
+        {
+            Console.Write("Digite o id do chamado que deseja excluir: ");
+            idSelecionado = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
+                break;
+        } while (true);
+
+        // 3. Com o objeto encontrado, excluir através do repositório
+        bool conseguiuExcluir = repositorioChamado.Excluir(idSelecionado);
+
+        if (!conseguiuExcluir)
+        {
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine($"Não foi possível encontar o registro informado.");
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine("Digite ENTER para continuar...");
+            Console.ReadLine();
+            return;
+        }
+
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine($"O registro \"{idSelecionado}\" foi excluído com sucesso.");
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine("Digite ENTER para continuar...");
+        Console.ReadLine();
     }
 
     public void VisualizarTodos(bool deveExibirCabecalho)
@@ -134,7 +169,7 @@ public class TelaChamado
 
     public void ExibirCabecalho(string titulo)
     {
-        //Console.Clear();
+        Console.Clear();
         Console.WriteLine("---------------------------------");
         Console.WriteLine("Gestão de Chamados");
         Console.WriteLine("---------------------------------");
