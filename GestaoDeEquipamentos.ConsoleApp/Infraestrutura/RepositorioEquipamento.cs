@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Specialized;
 using System.Security.Cryptography;
 using GestaoDeEquipamentos.ConsoleApp.Dominio;
 
@@ -85,5 +86,19 @@ public class RepositorioEquipamento
     public Equipamento?[] SelecionarTodos()
     {
         return equipamentos;
+    }
+
+
+    public bool ExisteEquipamentoDoFabricante(string idFabricante)
+    {
+        for (int i = 0; i < equipamentos.Length; i++)
+        {
+            Equipamento? e = equipamentos[i];
+
+            if (e.fabricante.id == idFabricante)
+                return true;
+        }
+
+        return false;
     }
 }
