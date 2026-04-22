@@ -134,15 +134,93 @@ while (true)
             );
         }
 
-        Console.Write("Digite o id do equipamento que deseja editar: ");
+        string? idSelecionado;
+
+        do
+        {
+            Console.Write("Digite o id do equipamento que deseja editar: ");
+            idSelecionado = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
+                break;
+        } while (true);
+
 
         // 2. Buscar/Validar o equipamento
+        Equipamento? equipamentoSelecionado = null;
+
+        for (int i = 0; i < equipamentos.Length; i++)
+        {
+            Equipamento? e = equipamentos[i];
+
+            if (e == null)
+                continue;
+
+            if (e.id == idSelecionado)
+            {
+                equipamentoSelecionado = e;
+                break;
+            }
+        }
+
+        if (equipamentoSelecionado == null)
+        {
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine($"Não foi possível encontar o equipamento informado.");
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine("Pressione ENTER para continuar...");
+            Console.ReadLine();
+            continue;
+        }
+
 
         // 3. Substituir as informações dos campos do equipamento pelas novas
+        Equipamento novoEquipamento = new Equipamento();
+
+        do
+        {
+            Console.Write("Digite o nome do equipamento: ");
+            novoEquipamento.nome = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(novoEquipamento.nome) &&
+                novoEquipamento.nome.Length > 3)
+            {
+                break;
+            }
+
+        } while (true);
+
+        do
+        {
+            Console.Write("Digite o fabricante do equipamento: ");
+            novoEquipamento.fabricante = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(novoEquipamento.fabricante) &&
+                novoEquipamento.fabricante.Length > 2)
+            {
+                break;
+            }
+
+        } while (true);
+
+        Console.Write("Digite o preço de aquisição do equipamento: ");
+        novoEquipamento.precoAquisicao = Convert.ToDecimal(Console.ReadLine());
+
+        Console.Write("Digite a data de fabricação do equipamento: ");
+        novoEquipamento.dataFabricacao = Convert.ToDateTime(Console.ReadLine());
+
+        equipamentoSelecionado.nome = novoEquipamento.nome;
+        equipamentoSelecionado.fabricante = novoEquipamento.fabricante;
+        equipamentoSelecionado.precoAquisicao = novoEquipamento.precoAquisicao;
+        equipamentoSelecionado.dataFabricacao = novoEquipamento.dataFabricacao;
+
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine($"O registro \"{equipamentoSelecionado.id}\" foi editado com sucesso.");
         Console.WriteLine("---------------------------------");
         Console.WriteLine("Pressione ENTER para continuar...");
         Console.ReadLine();
     }
+
     else if (opcaoMenu == "3")
     {
     }
