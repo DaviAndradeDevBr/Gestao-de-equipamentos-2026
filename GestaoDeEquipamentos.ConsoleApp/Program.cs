@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.Reflection.Metadata;
+using System.Security.Cryptography;
 using GestaoDeEquipamentos.ConsoleApp;
 
 Equipamento?[] equipamentos = new Equipamento[100];
@@ -223,7 +224,80 @@ while (true)
 
     else if (opcaoMenu == "3")
     {
+        Console.Clear();
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine("Gestão de Equipamentos");
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine("Exclusão de Equipamento");
+        Console.WriteLine("---------------------------------");
+
+        // 1. Perguntar qual equipamento o usuário quer excluir
+
+        Console.WriteLine(
+            "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
+            "Id", "Nome", "Fabricante", "Preço de Aquisição", "Data de Fabricação"
+        );
+
+        for (int i = 0; i < equipamentos.Length; i++)
+        {
+            Equipamento? e = equipamentos[i];
+
+            if (e == null)
+                continue;
+
+            Console.WriteLine(
+                "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
+                e.id, e.nome, e.fabricante, e.precoAquisicao.ToString("C2"), e.dataFabricacao.ToShortDateString()
+            );
+        }
+
+        string? idSelecionado;
+
+        do
+        {
+            Console.Write("Digite o id do equipamento que deseja excluir: ");
+            idSelecionado = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
+                break;
+        } while (true);
+
+        // 2. Buscar o espaço em que o equipamento selecionado está armazenado
+        bool equipamentoExcluido = false;
+
+
+        for (int i = 0; i < equipamentos.Length; i++)
+        {
+            Equipamento? e = equipamentos[i];
+
+            if (e == null)
+                continue;
+
+            if (e.id == idSelecionado)
+            {
+                equipamentos[i] = null;
+                equipamentoExcluido = true;
+                break;
+            }
+        }
+
+        if (equipamentoExcluido)
+        {
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine($"O registro \"{idSelecionado}\" foi excluído com sucesso.");
+            Console.WriteLine("---------------------------------");
+        }
+        else
+        {
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine($"Não foi possível encontrar o registro \"{idSelecionado}\".");
+            Console.WriteLine("---------------------------------");
+        }
+
+        Console.Write("Pressione ENTER para continuar...");
+        Console.ReadLine();
     }
+
     else if (opcaoMenu == "4")
     {
     }
