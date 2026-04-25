@@ -41,6 +41,25 @@ public class RepositorioChamado
         return true;
     }
 
+    public bool Excluir(string idSelecionado)
+    {
+        for (int i = 0; i < chamados.Length; i++)
+        {
+            Chamado? c = chamados[i];
+
+            if (c == null)
+                continue;
+
+            if (c.id == idSelecionado)
+            {
+                chamados[i] = null;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public Chamado? SelecionarPorId(string idSelecionado)
     {
         Chamado? equipamentoSelecionado = null;
