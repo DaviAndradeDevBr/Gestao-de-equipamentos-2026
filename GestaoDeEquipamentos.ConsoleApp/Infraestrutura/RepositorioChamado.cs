@@ -26,6 +26,42 @@ public class RepositorioChamado
         }
     }
 
+    public bool Editar(string idSelecionado, Chamado novoChamado)
+    {
+        Chamado? chamadoSelecionado = SelecionarPorId(idSelecionado);
+
+        if (chamadoSelecionado == null)
+            return false;
+
+        chamadoSelecionado.titulo = novoChamado.titulo;
+        chamadoSelecionado.descricao = novoChamado.descricao;
+        chamadoSelecionado.dataAbertura = novoChamado.dataAbertura;
+        chamadoSelecionado.equipamento = novoChamado.equipamento;
+
+        return true;
+    }
+
+    public Chamado? SelecionarPorId(string idSelecionado)
+    {
+        Chamado? equipamentoSelecionado = null;
+
+        for (int i = 0; i < chamados.Length; i++)
+        {
+            Chamado? c = chamados[i];
+
+            if (c == null)
+                continue;
+
+            if (c.id == idSelecionado)
+            {
+                equipamentoSelecionado = c;
+                break;
+            }
+        }
+
+        return equipamentoSelecionado;
+    }
+
     public Chamado?[] SelecionarTodos()
     {
         return chamados;

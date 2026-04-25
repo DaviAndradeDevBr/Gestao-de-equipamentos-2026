@@ -17,9 +17,24 @@ Equipamento equipamento = new Equipamento();
 equipamento.nome = "Notebook";
 equipamento.fabricante = "Lenovo";
 equipamento.precoAquisicao = 3500;
-equipamento.dataFabricacao = DateTime.Now;
+equipamento.dataFabricacao = DateTime.Now.AddYears(-5); ;
+
+Equipamento equipamento2 = new Equipamento();
+equipamento2.nome = "Monitor";
+equipamento2.fabricante = "Mancer";
+equipamento2.precoAquisicao = 450;
+equipamento2.dataFabricacao = DateTime.Now.AddYears(-3);
 
 repositorioEquipamento.Cadastrar(equipamento);
+repositorioEquipamento.Cadastrar(equipamento2);
+
+Chamado chamado = new Chamado();
+chamado.titulo = "Quebrou o display";
+chamado.descricao = "Está com problema no Led";
+chamado.dataAbertura = DateTime.Now.AddDays(-7);
+chamado.equipamento = equipamento;
+
+repositorioChamado.Cadastrar(chamado);
 
 while (true)
 {
@@ -92,7 +107,7 @@ while (true)
 
 
             else if (opcaoMenu == "4")
-                telaChamado.VisualizarTodos();
+                telaChamado.VisualizarTodos(deveExibircabecalho: true);
         }
     }
 }

@@ -87,8 +87,6 @@ public class TelaEquipamento
         Console.WriteLine("Edição de Equipamento");
         Console.WriteLine("---------------------------------");
 
-        // 1. Perguntar qual equipamento o usuário quer editar
-
         Console.WriteLine(
             "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
             "Id", "Nome", "Fabricante", "Preço de Aquisição", "Data de Fabricação"
